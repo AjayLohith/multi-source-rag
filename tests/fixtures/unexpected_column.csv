@@ -1,0 +1,3 @@
+id,name,department,clearance_level,notes
+201,Charlie,Security,TopSecret,Active badge
+202,Dana,Operations,Secret,Remote worker

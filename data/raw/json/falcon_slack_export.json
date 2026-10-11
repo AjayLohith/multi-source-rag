@@ -1,0 +1,36 @@
+{
+  "workspace": "orbital-robotics",
+  "channel": "#falcon-engineering",
+  "messages": [
+    {
+      "id": "msg_1001",
+      "user": "rahul.mehta",
+      "timestamp": "2026-03-02T09:14:00Z",
+      "text": "Route-planner migration is live in prod. Seeing an 18% drop in avg task completion time so far, matches what we saw in staging."
+    },
+    {
+      "id": "msg_1002",
+      "user": "ananya.rao",
+      "timestamp": "2026-03-02T09:20:00Z",
+      "text": "Nice. I'll update the deployment runbook to reflect the new rollback command timing (~90s now)."
+    },
+    {
+      "id": "msg_1003",
+      "user": "kevin.osei",
+      "timestamp": "2026-03-05T14:02:00Z",
+      "text": "Heads up, invoice SK-2026-00417 from Skyline Parts just came in for the servo motor restock, $6,987.60 total. Approved and forwarded to finance."
+    },
+    {
+      "id": "msg_1004",
+      "user": "priya.nandakumar",
+      "timestamp": "2026-03-06T11:45:00Z",
+      "text": "Reminder: parental leave requests need 30 days notice and sign-off from both manager and HR. A few people have been submitting late."
+    },
+    {
+      "id": "msg_1005",
+      "user": "rahul.mehta",
+      "timestamp": "2026-03-10T16:30:00Z",
+      "text": "telemetry-ingest backlog is at 14 open tickets. We agreed in retro to dedicate 20% of Sprint 15 to knocking this down."
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+Orbital Robotics Pvt Ltd — Company Overview (Internal Notes)
+
+Orbital Robotics builds autonomous warehouse robots and the Falcon fleet-management
+platform used to coordinate them. The company was founded in 2019 and is organized
+into three main departments: Engineering, HR, and Procurement.
+
+The flagship product line is the Falcon platform, consisting of three core services:
+fleet-manager, route-planner, and telemetry-ingest. The Falcon engineering team is
+led by Rahul Mehta, with platform infrastructure led separately by Ananya Rao.
+
+Hardware components (servo motors, wheel hub bearings, LiDAR sensors) are sourced
+primarily from Skyline Parts & Components Ltd, a vendor Orbital Robotics has worked
+with since 2022.

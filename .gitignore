@@ -1,0 +1,20 @@
+# Environment & Secrets
+.env
+.env.local
+
+# Virtual Environment
+.venv/
+env/
+venv/
+
+# Python Cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.pytest_cache/
+.pytest_cache/
+
+# Local databases and vector cache
+data/rag_db.sqlite*
+data/qdrant_storage/
+data/qdrant_local/

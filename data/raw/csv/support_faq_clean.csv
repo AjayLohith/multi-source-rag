@@ -1,0 +1,9 @@
+id,title,body
+FAQ-001,How do I reset a robot's task queue?,"Use the Falcon admin console, select the robot, and click 'Clear Queue'. This requires operator-level access."
+FAQ-002,What is Orbital Robotics' standard warranty period?,All Orbital Robotics hardware ships with a 24-month standard warranty covering manufacturing defects.
+FAQ-003,How do I request a replacement part?,Submit a request through the Skyline Parts portal referencing your original invoice number.
+FAQ-004,Who approves parental leave requests?,"Parental leave requests require approval from both the employee's manager and the Head of HR, Priya Nandakumar."
+FAQ-005,What is the SLA for on-call incident response?,The on-call engineer must triage alerts within 15 minutes during business hours per the Falcon on-call policy.
+FAQ-006,How long is annual leave carry-forward allowed?,Employees may carry forward up to 10 unused annual leave days into the next calendar year.
+FAQ-007,Which team owns the route-planner service?,"The route-planner service is owned by the Falcon engineering team, led by Rahul Mehta."
+FAQ-008,What was the outcome of the route-planner migration?,The Sprint 14 migration to the new pathfinding algorithm reduced average task completion time by 18%.
