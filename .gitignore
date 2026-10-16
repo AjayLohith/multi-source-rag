@@ -18,3 +18,6 @@ __pycache__/
 data/rag_db.sqlite*
 data/qdrant_storage/
 data/qdrant_local/
+
+# Local-only docs
+TECHNICAL_DOCS.md
