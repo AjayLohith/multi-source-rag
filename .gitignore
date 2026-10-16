@@ -21,3 +21,5 @@ data/qdrant_local/
 
 # Local-only docs
 TECHNICAL_DOCS.md
+TECHNICAL_DOCS.docx
+TECHNICAL_DOCS.doc
