@@ -1,88 +1,57 @@
-# Multi-Source Enterprise RAG Platform
+<div align="center">
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python 3.11+"/>
-  <img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI"/>
-  <img src="https://img.shields.io/badge/Qdrant-Vector_DB-DC2626?style=for-the-badge&logo=qdrant&logoColor=white" alt="Qdrant"/>
-  <img src="https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL"/>
-  <img src="https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white" alt="Redis"/>
-  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker"/>
-  <img src="https://img.shields.io/badge/Sentence--Transformers-BGE_Small-FFA000?style=for-the-badge&logo=huggingface&logoColor=white" alt="Embeddings"/>
-  <img src="https://img.shields.io/badge/LLMs-Groq_%7C_Gemini_%7C_Mistral-6366F1?style=for-the-badge&logo=openai&logoColor=white" alt="LLMs"/>
-  <img src="https://img.shields.io/badge/Pytest-37%2F37_Passed-brightgreen?style=for-the-badge&logo=pytest&logoColor=white" alt="Pytest"/>
-  <img src="https://img.shields.io/badge/License-MIT-blue?style=for-the-badge" alt="License"/>
+# Multi-Source RAG
+
+A production-grade Retrieval-Augmented Generation system that ingests, normalizes, deduplicates, and queries across 9+ heterogeneous data formats through a single async API.
+
+<p align="left">Built with the tools and technologies:</p>
+
+<p align="left">
+  <img src="https://img.shields.io/badge/Python-3776AB.svg?style=flat&logo=python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/FastAPI-009688.svg?style=flat&logo=fastapi&logoColor=white" alt="FastAPI">
+  <img src="https://img.shields.io/badge/Pydantic-E92063.svg?style=flat&logo=pydantic&logoColor=white" alt="Pydantic">
+  <img src="https://img.shields.io/badge/SQLAlchemy-D71F00.svg?style=flat&logo=sqlalchemy&logoColor=white" alt="SQLAlchemy">
+  <img src="https://img.shields.io/badge/PostgreSQL-4169E1.svg?style=flat&logo=postgresql&logoColor=white" alt="PostgreSQL">
+  <img src="https://img.shields.io/badge/SQLite-003B57.svg?style=flat&logo=sqlite&logoColor=white" alt="SQLite">
+  <img src="https://img.shields.io/badge/Qdrant-DC2626.svg?style=flat&logo=qdrant&logoColor=white" alt="Qdrant">
+  <img src="https://img.shields.io/badge/Redis-DC382D.svg?style=flat&logo=redis&logoColor=white" alt="Redis">
+  <img src="https://img.shields.io/badge/Docker-2496ED.svg?style=flat&logo=docker&logoColor=white" alt="Docker">
+  <img src="https://img.shields.io/badge/HuggingFace-FFD21E.svg?style=flat&logo=huggingface&logoColor=black" alt="HuggingFace">
+  <img src="https://img.shields.io/badge/Groq-FF6B35.svg?style=flat&logo=groq&logoColor=white" alt="Groq">
+  <img src="https://img.shields.io/badge/Google%20Gemini-4285F4.svg?style=flat&logo=googlegemini&logoColor=white" alt="Gemini">
+  <img src="https://img.shields.io/badge/Tesseract%20OCR-4B8BBE.svg?style=flat&logo=tesseract&logoColor=white" alt="Tesseract OCR">
+  <img src="https://img.shields.io/badge/Pandas-150458.svg?style=flat&logo=pandas&logoColor=white" alt="Pandas">
+  <img src="https://img.shields.io/badge/Pytest-0A9EDC.svg?style=flat&logo=pytest&logoColor=white" alt="Pytest">
 </p>
 
-A production-engineered, modular **Retrieval-Augmented Generation (RAG)** system built from first principles. It ingests, extracts, normalizes, deduplicates, chunks, embeds, and queries information across **9+ heterogeneous data formats** (scanned/vector PDFs, CSV, SQL databases, Word documents, JSON, Markdown, Text, Web pages, and REST APIs).
-
-Engineered with clean hexagonal architecture, strict data contracts, content-addressed deduplication, per-page OCR fallback, dead-letter resilience, and a zero-crash dual runtime (Docker Compose production mode + zero-dependency embedded disk fallback).
+</div>
 
 ---
 
-## 💼 Job Application & Interview Cheat Sheet (Direct Copy-Paste)
+## Overview
 
-> **Quick Navigation**: Use the pre-formatted answers below for job portal application questions, resume updates, or technical interview discussions.
+Most RAG implementations handle a single file type, re-embed unchanged documents on every run, crash without Docker, and return answers without citations. This project solves all of that.
 
-### 1. Short Project Description (100–150 Words)
-> *"I built an end-to-end Multi-Source Enterprise RAG platform in Python and FastAPI that enables grounded question answering across 9 heterogeneous unstructured and structured data sources (PDF with OCR fallback, CSV, SQL, DOCX, JSON, Markdown, Web, and REST APIs). The system features an idempotent ingestion pipeline using SHA-256 content hashing to avoid redundant re-embedding, source-aware adaptive chunking, and local BGE-small vector embeddings indexed into Qdrant. For generation, it leverages a multi-LLM orchestration layer (Groq Llama-3.3, Google Gemini 1.5, Mistral) with strict citation verification to eliminate hallucinations. To guarantee portability, I engineered a self-healing fallback architecture that switches between containerized Docker services (Postgres, Redis, Qdrant) and local embedded storage (SQLite, asyncio queues, disk-based Qdrant) with zero downtime."*
+The system accepts **9 data formats** — scanned and digital PDFs, CSV, SQL databases, Word documents, JSON, Markdown, plain text, web pages, and REST APIs — processes them through a uniform pipeline, and serves grounded, cited answers via a FastAPI REST API.
 
----
+**What makes it different:**
 
-### 2. Behavioral & Technical Interview: STAR Method
-
-#### **S — Situation**
-Organizations possess valuable institutional knowledge trapped across fragmented, incompatible file formats (scanned PDF invoices, database tables, Excel sheets, Slack JSON exports, and internal documentation). Standard off-the-shelf RAG tutorials only demonstrate single-file text retrieval, fail silently on scanned images, re-embed identical documents causing high API costs, and crash without external Docker dependencies.
-
-#### **T — Task**
-Design and build an enterprise-ready, production-grade RAG application capable of ingesting diverse structured and unstructured data, cleaning schema drift, intelligently segmenting content based on document boundaries, eliminating redundant embeddings, and providing low-latency, cited responses through an async REST API.
-
-#### **A — Action**
-- **Decoupled Architecture**: Established frozen Pydantic contracts (`RawDocument` ➔ `DocumentRecord` ➔ `ChunkRecord`) separating source fetching, parsing, normalization, and storage.
-- **Dual-Path Extraction**: Implemented fast PyMuPDF extraction for native PDFs with automatic per-page Tesseract OCR fallback for scanned pages (<20 chars).
-- **Intelligent Normalization & Chunking**: Handled CSV/SQL schema drift with dynamic alias mapping and built source-aware chunkers (row-preserving for tables, paragraph-aware for prose).
-- **Cost & Compute Optimization**: Implemented SHA-256 content hashing and repository deduplication checks, skipping 100% of re-embedding compute on unchanged files.
-- **Resilience Engineering**: Built exponential backoff with jitter, sliding-window rate limiters, and a Dead Letter Queue (DLQ) for failed documents.
-- **Local-First Fallback Layer**: Programmed automatic connection probes allowing the entire system to seamlessly switch between Dockerized services (Postgres/Redis/Qdrant) and embedded local equivalents (SQLite/asyncio/Qdrant disk storage).
-- **Test-Driven Rigor**: Authored an exhaustive 37-test suite spanning all adapters, edge cases, corrupted files, and API endpoints.
-
-#### **R — Result**
-- **100% Format Coverage**: Successfully handled 9+ file types with automated OCR extraction.
-- **Zero-Crash Portability**: Runs with or without Docker, verified across automated test suites with 37/37 passing tests.
-- **Sub-100ms Query Retrieval**: Delivered high-relevance semantic search combining vector similarity and metadata filtering.
-- **Cost Reduction**: Eliminated unnecessary embedding calls through content-addressed deduplication.
+- **Per-page OCR fallback** — PyMuPDF extracts native text in under 2ms per page. Only pages with fewer than 20 characters of text are routed to Tesseract OCR, avoiding the 98% compute waste of full-document OCR.
+- **Content-addressed deduplication** — Every document is SHA-256 hashed before embedding. If the hash already exists in the database, the entire embedding and vector write is skipped at zero cost.
+- **Zero-crash dual runtime** — The app probes PostgreSQL, Redis, and Qdrant on startup. If any service is offline, it silently falls back to SQLite, asyncio queues, and Qdrant's embedded disk engine. No configuration changes needed.
+- **Multi-LLM provider abstraction** — Swap between Groq (Llama-3.3-70b), Google Gemini 1.5 Flash, and Mistral with a single `provider` parameter. All responses enforce strict context grounding and source-level citations.
+- **37 automated tests** covering contracts, every source adapter, OCR fallback paths, schema drift, corrupted inputs, rate limiting, and all API endpoints.
 
 ---
 
-### 3. Resume Bullet Points (Copy into CV / LinkedIn)
-- **Built an enterprise Multi-Source RAG engine** in FastAPI and Python supporting 9 heterogeneous formats (PDF with OCR fallback, CSV, SQL, DOCX, JSON, Markdown, Web, REST APIs).
-- **Engineered an idempotent ingestion pipeline** utilizing SHA-256 content hashing and deduplication, bypassing re-embedding for unchanged assets to optimize compute and vector DB writes.
-- **Designed a dual-path document parsing engine** combining PyMuPDF for native text (10x faster) and Tesseract OCR for scanned documents with automatic per-page trigger thresholds.
-- **Architected a zero-downtime dual-mode runtime** providing dynamic fallback between production Docker services (PostgreSQL, Redis, Qdrant) and embedded local storage (SQLite, in-memory queues, Qdrant disk mode).
-- **Integrated multi-provider LLM orchestration** (Groq Llama-3.3, Google Gemini 1.5, Mistral) with strict prompt grounding, context bounding, and source-level citation tracking.
-- **Enforced production quality** through 37 automated unit and integration tests covering schema drift, corrupt inputs, rate limiting, and API contracts.
-
----
-
-### 4. Key Architectural Decisions (Great for Technical Interviews)
-
-| Decision | Alternative Considered | Why This Choice Won |
-| :--- | :--- | :--- |
-| **PyMuPDF + Tesseract Fallback** | `pdfminer`, `poppler`, or full OCR | PyMuPDF is 10–25x faster on CPU. Full OCR across multi-page files wastes 98% compute; per-page fallback triggers OCR only when page text < 20 chars. |
-| **SHA-256 Deduplication** | Timestamp / Path checking | File paths and modified dates change across environments; cryptographic content hashing guarantees true idempotence and eliminates redundant vector compute. |
-| **Local BGE-Small Embeddings** | OpenAI `text-embedding-3` API | 100% privacy, zero API cost, deterministic vector dimensions (384-d), and zero latency overhead from network calls. |
-| **Zero-Crash Dual Runtime** | Strict Docker Compose | Prevents local developer onboarding failures by automatically probing ports and falling back to embedded SQLite and local Qdrant disk storage when containers are down. |
-| **Frozen Pydantic Contracts** | Loosely-typed dicts | Decouples extractor logic from vector storage, eliminating cascading bugs when schema formats or third-party APIs update. |
-
----
-
-## 🏗️ System Architecture & Data Pipeline
+## System Architecture
 
 ```
   ┌─────────────────────────────────────────────────────────────────────────────┐
   │                         DATA EXTRACTION & ADAPTERS                          │
   │   PDF (Native + OCR) │ CSV │ SQL │ DOCX │ JSON │ Markdown │ Web │ REST API  │
   └──────────────────────────────────────┬──────────────────────────────────────┘
-                                         │  yields RawDocument
+                                         │  RawDocument
                                          ▼
   ┌─────────────────────────────────────────────────────────────────────────────┐
   │                           NORMALIZATION LAYER                               │
@@ -92,78 +61,89 @@ Design and build an enterprise-ready, production-grade RAG application capable o
                                          ▼
   ┌─────────────────────────────────────────────────────────────────────────────┐
   │                     IDEMPOTENT DEDUPLICATION CHECK                          │
-  │             Hash exists in DB? ──► YES ──► Skip Embedding (0 cost)          │
-  │                                └──► NO  ──► Proceed to Chunking             │
+  │             Hash exists in DB? ──► YES ──► Skip (0 cost)                    │
+  │                                └──► NO  ──► Continue                        │
   └──────────────────────────────────────┬──────────────────────────────────────┘
                                          │  ChunkRecord[]
                                          ▼
   ┌─────────────────────────────────────────────────────────────────────────────┐
   │                    ADAPTIVE CHUNKING & LOCAL EMBEDDINGS                     │
-  │    Boundary-Aware Chunking ──► Batcher (BAAI/bge-small-en-v1.5, 384-d)     │
+  │    Source-Aware Splitting ──► BGE-small-en-v1.5 Batcher (384-d vectors)     │
   └──────────────────────────────────────┬──────────────────────────────────────┘
                                          │  Vectors + Payloads
                                          ▼
   ┌─────────────────────────────────────────────────────────────────────────────┐
-  │                   STORAGE & VECTOR STORE (DUAL RUNTIME)                     │
-  │   PostgreSQL / SQLite  ◄── Metadata & Logs │ Vector Index ──► Qdrant        │
+  │                   STORAGE & VECTOR INDEX (DUAL RUNTIME)                     │
+  │   PostgreSQL / SQLite  ◄── Metadata │ Qdrant Server / Disk ──► Vectors      │
   └──────────────────────────────────────┬──────────────────────────────────────┘
-                                         │  Semantic Search / Hybrid Filter
+                                         │  Top-K Cosine Search
                                          ▼
   ┌─────────────────────────────────────────────────────────────────────────────┐
   │                      RETRIEVAL & GROUNDED GENERATION                        │
-  │      Top-K Cosine Retrieval ──► Context Bounding ──► Multi-LLM Provider     │
-  │                     (Groq Llama-3.3 / Gemini 1.5 / Mistral)                 │
+  │      Context Bounding ──► Multi-LLM (Groq / Gemini / Mistral)               │
   └──────────────────────────────────────┬──────────────────────────────────────┘
                                          │
                                          ▼
-                               Grounded Cited Answer
+                               Cited Answer + Sources
 ```
 
+The pipeline uses frozen Pydantic contracts at every boundary (`RawDocument` → `DocumentRecord` → `ChunkRecord`), so adding a new source adapter or swapping the vector database requires zero changes to the rest of the system.
+
 ---
 
-## ⚡ Supported Data Sources & Extraction Logic
+## Supported Data Sources
 
-| Source Type | Adapter Engine | Special Resilience Handling |
+| Format | Engine | How It Handles Edge Cases |
 | :--- | :--- | :--- |
-| **PDF** | PyMuPDF (`fitz`) | Dual-path: extracts digital text in <2ms/page; routes scanned pages to Tesseract OCR when text < 20 chars. |
-| **CSV** | Pandas | Schema-agnostic: normalizes reordered headers, strips dirty whitespaces, dynamically maps column aliases. |
-| **SQL** | SQLAlchemy | Parameterized query execution, auto-discovery of primary keys, bound limits to prevent memory exhaustion. |
-| **DOCX** | `python-docx` | Structured paragraph parsing, nested table extraction, and empty section pruning. |
-| **JSON** | Python standard library | Handles both flat objects and nested array records, unrolling key-value pairs into searchable text. |
-| **Markdown** | Regex & header parser | Preserves markdown header hierarchies (`#`, `##`, `###`) for boundary-aware chunking. |
-| **Plain Text** | Native streaming | Clean UTF-8 normalization with carriage return and whitespace cleanup. |
-| **Web** | HTTPX + BeautifulSoup4 | Strips HTML scripts, CSS styles, navigation bars, headers, and footers; extracts clean main body text. |
-| **REST API** | HTTPX async client | Generic JSON API extractor with token/key authorization headers, timeout limits, and pagination support. |
+| **PDF** | PyMuPDF + Tesseract | Native text extraction with automatic per-page OCR fallback for scanned/image pages |
+| **CSV** | Pandas | Schema-agnostic — handles reordered columns, dirty whitespace, and alias mapping |
+| **SQL** | SQLAlchemy | Parameterized queries, primary key auto-discovery, row limits to prevent OOM |
+| **DOCX** | python-docx | Paragraph and nested table extraction with empty section pruning |
+| **JSON** | stdlib | Flat objects and nested arrays unrolled into searchable text |
+| **Markdown** | Regex parser | Header hierarchy preservation for boundary-aware chunking |
+| **Plain Text** | Streaming | UTF-8 normalization with whitespace cleanup |
+| **Web Pages** | HTTPX + BeautifulSoup | Strips scripts, CSS, nav, footers — extracts clean body text |
+| **REST API** | HTTPX async | JSON endpoint extraction with auth headers and pagination |
 
 ---
 
-## 🚀 Quickstart & Run Guide
+## Design Decisions
 
-### 1. Prerequisites
-- Python 3.11 or higher
+| Decision | Why |
+| :--- | :--- |
+| **PyMuPDF over pdfminer/poppler** | 10–25x faster on CPU. Built-in page rasterization for OCR without external system binaries. |
+| **Per-page OCR, not per-document** | A 50-page PDF with 1 scanned page wastes 49 pages of OCR compute. Threshold check (<20 chars) triggers OCR only where needed. |
+| **SHA-256 dedup over timestamps** | File paths and modified dates change across machines. Content hashing gives true idempotence. |
+| **Local BGE-small embeddings** | Zero API cost, full privacy, deterministic 384-d vectors, no network latency. |
+| **Dual runtime fallback** | Developers shouldn't need Docker running to test locally. Auto-probe and fallback to SQLite + disk Qdrant. |
+| **Frozen Pydantic contracts** | Decouples extractors from storage. Adding a source or swapping a vector DB causes zero cascading changes. |
+| **Dead Letter Queue** | Failed documents go to DLQ instead of crashing the pipeline. Retry with exponential backoff + jitter. |
+
+---
+
+## Getting Started
+
+### Prerequisites
+- Python 3.11+
 - Git
-- *(Optional)* Docker & Docker Compose (for production PostgreSQL, Redis, and Qdrant services)
+- *(Optional)* Docker & Docker Compose — for PostgreSQL, Redis, and Qdrant containers. Without Docker, the system uses SQLite and local Qdrant automatically.
 
-### 2. Clone & Setup Virtual Environment
+### Setup
 ```powershell
-# Clone the repository
 git clone https://github.com/AjayLohith/multi-source-rag.git
 cd multi-source-rag
 
-# Create virtual environment
 python -m venv .venv
 .venv\Scripts\activate
 
-# Install dependencies
 pip install -r requirements.txt
 ```
 
-### 3. Environment Variables
-Copy the template file to create your local `.env`:
+### Configure Environment
 ```powershell
 cp .env.example .env
 ```
-Populate your API keys in `.env`:
+Fill in your API keys in `.env`:
 ```env
 GOOGLE_API_KEY=your_google_api_key_here
 GEMINI_MODEL=gemini-1.5-flash
@@ -171,102 +151,71 @@ GEMINI_MODEL=gemini-1.5-flash
 GROQ_API_KEY=your_groq_api_key_here
 GROQ_MODEL=llama-3.3-70b-versatile
 
-# Optional (System automatically defaults to SQLite + Disk Qdrant if Docker is offline)
+# Optional — system falls back to SQLite + disk Qdrant if these are unreachable
 DATABASE_URL=postgresql+psycopg://rag_user:rag_pass@localhost:5432/rag_db
 REDIS_URL=redis://localhost:6379/0
 QDRANT_URL=http://localhost:6333
 ```
 
----
-
-## 🧪 Testing & Verification
-
-Run the full automated test suite (37 tests across contracts, adapters, chunking, resilience, and API routes):
+### Run Tests
 ```powershell
+# Full 37-test suite
 .venv\Scripts\pytest -v
-```
 
-Run dedicated fixture tests for all file adapters:
-```powershell
+# Individual adapter verification
 .venv\Scripts\python.exe scripts/test_sources.py
 ```
 
----
-
-## 🔄 Batch Ingestion & Vector Index Management
-
-### Ingest all sample raw fixtures (PDF, CSV, SQL, DOCX, JSON, MD, TXT):
+### Ingest Data
 ```powershell
+# Ingest all sample fixtures (PDF, CSV, SQL, DOCX, JSON, MD, TXT)
 .venv\Scripts\python.exe scripts/ingest_all.py
-```
 
-### Rebuild and sync vector index from SQLite/Postgres:
-```powershell
+# Rebuild vector index from database
 .venv\Scripts\python.exe scripts/rebuild_index.py
 ```
 
----
-
-## 🌐 Running the FastAPI Application
-
-Start the local server with hot reloading:
+### Start the Server
 ```powershell
 .venv\Scripts\uvicorn.exe app.main:app --reload --port 8000
 ```
-Interactive Swagger UI documentation is available at:
-👉 **`http://localhost:8000/docs`**
+Swagger docs at **http://localhost:8000/docs**
 
 ---
 
-## 📡 API Reference & Examples
+## API Usage
 
-### 1. Ingest a Source (`POST /ingest`)
-Trigger background ingestion for any supported data format:
+### Ingest a source
 ```powershell
 curl.exe -X POST "http://localhost:8000/ingest" `
   -H "Content-Type: application/json" `
-  -d '{
-    "source_type": "csv",
-    "name": "Employee FAQ",
-    "config": { "path": "data/raw/csv/support_faq_clean.csv" }
-  }'
+  -d '{"source_type": "csv", "name": "Support FAQ", "config": {"path": "data/raw/csv/support_faq_clean.csv"}}'
 ```
-**Response (`202 Accepted`):**
 ```json
 {
   "job_id": "job_94c483a9",
   "status": "queued",
   "source_type": "csv",
-  "message": "Ingestion job queued for Employee FAQ"
+  "message": "Ingestion job queued for Support FAQ"
 }
 ```
 
-### 2. Semantic Search (`POST /search`)
-Perform Top-K vector similarity search with metadata payloads:
+### Search
 ```powershell
 curl.exe -X POST "http://localhost:8000/search" `
   -H "Content-Type: application/json" `
-  -d '{
-    "query": "What is the policy for medical leave?",
-    "top_k": 3
-  }'
+  -d '{"query": "What is the policy for medical leave?", "top_k": 3}'
 ```
 
-### 3. Grounded RAG Chat (`POST /chat`)
-Query the system and receive a synthesized, citation-grounded response:
+### Chat (grounded RAG)
 ```powershell
 curl.exe -X POST "http://localhost:8000/chat" `
   -H "Content-Type: application/json" `
-  -d '{
-    "query": "Who is the Lead Propulsion Engineer and what department are they in?",
-    "top_k": 3,
-    "provider": "groq"
-  }'
+  -d '{"query": "Who is the Lead Propulsion Engineer?", "top_k": 3, "provider": "groq"}'
 ```
-**Response (`200 OK`):**
 ```json
 {
-  "query": "Who is the Lead Propulsion Engineer and what department are they in?",
+  "query": "Who is the Lead Propulsion Engineer?",
   "answer": "Elena Vance is the Lead Propulsion Engineer in the Aerospace Engineering department.",
   "citations": [
     {
@@ -284,44 +233,43 @@ curl.exe -X POST "http://localhost:8000/chat" `
 
 ---
 
-## 📂 Repository Structure
+## Project Structure
 
 ```
 multi-source-rag/
 ├── app/
-│   ├── main.py                     # FastAPI application bootstrap & lifespan
-│   ├── config.py                   # Centralized Pydantic BaseSettings
-│   ├── contracts.py                # Frozen data contracts (DTOs & Enums)
-│   ├── api/                        # HTTP endpoints (/health, /ingest, /search, /chat)
-│   ├── sources/                    # Adapters (PDF, CSV, SQL, DOCX, JSON, MD, TXT, Web, API)
-│   ├── extraction/                 # Parsing engines, OCR fallback & typed exceptions
-│   ├── normalization/              # Unicode cleanup, schema drift mapping, SHA-256
-│   ├── chunking/                   # Source-aware adaptive boundary chunkers
-│   ├── database/                   # SQLAlchemy ORM models, session & repository
-│   ├── resilience/                 # Backoff, jitter, rate limiter & Dead Letter Queue (DLQ)
-│   ├── embeddings/                 # SentenceTransformers local model & batching
-│   ├── vectorstore/                # Qdrant client, collection setup & similarity search
-│   ├── retrieval/                  # Semantic search, context builder & citation linker
-│   └── llm/                        # Multi-LLM provider abstraction (Groq, Gemini, Mistral)
+│   ├── main.py                # FastAPI bootstrap and lifespan
+│   ├── config.py              # Pydantic BaseSettings
+│   ├── contracts.py           # Frozen data contracts (RawDocument, DocumentRecord, ChunkRecord)
+│   ├── api/                   # Route handlers — /health, /ingest, /search, /chat
+│   ├── sources/               # Source adapters — PDF, CSV, SQL, DOCX, JSON, MD, TXT, Web, API
+│   ├── extraction/            # Parsing engines, OCR fallback, typed exceptions
+│   ├── normalization/         # Unicode cleanup, schema drift mapping, SHA-256 hashing
+│   ├── chunking/              # Source-aware boundary chunkers
+│   ├── database/              # SQLAlchemy ORM models, session factory, repository
+│   ├── resilience/            # Exponential backoff, jitter, rate limiter, Dead Letter Queue
+│   ├── embeddings/            # SentenceTransformers (BGE-small) model and batching
+│   ├── vectorstore/           # Qdrant client, collection setup, similarity search
+│   ├── retrieval/             # Semantic search, context builder, citation linker
+│   └── llm/                   # Multi-provider LLM abstraction (Groq, Gemini, Mistral)
 ├── data/
-│   ├── raw/                        # Sample fixtures for all 9 data formats
-│   ├── rag_db.sqlite               # Local fallback relational database
-│   └── qdrant_storage/             # Local fallback embedded vector index
+│   └── raw/                   # Sample fixtures across all 9 formats
 ├── docker/
-│   └── docker-compose.yml          # Containerized Postgres, Redis, and Qdrant services
+│   └── docker-compose.yml     # PostgreSQL, Redis, Qdrant container config
 ├── scripts/
-│   ├── ingest_all.py               # Batch-ingest all raw data sources
-│   ├── rebuild_index.py            # Re-index all database records into Qdrant
-│   └── test_sources.py             # Diagnostic test script for extractors
-├── tests/                          # 37 automated unit and integration tests
-├── documentation.md                # In-depth architectural & deployment manual
-├── flow.md                         # Detailed system execution flows & Mermaid diagrams
-├── decision.md                     # Engineering trade-offs & decision rationales
-├── .env.example                    # Safe template for environment configuration
-└── requirements.txt                # Production dependencies
+│   ├── ingest_all.py          # Batch ingest all raw data
+│   ├── rebuild_index.py       # Re-index database records into Qdrant
+│   └── test_sources.py        # Adapter diagnostic script
+├── tests/                     # 37 automated tests
+├── documentation.md           # Full system documentation
+├── flow.md                    # Execution flows and Mermaid diagrams
+├── decision.md                # Engineering trade-off rationales
+├── .env.example               # Environment variable template
+└── requirements.txt           # Dependencies
 ```
 
 ---
 
-## 📜 License
-This project is open-source and licensed under the [MIT License](LICENSE).
+## License
+
+MIT
